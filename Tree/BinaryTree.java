@@ -151,9 +151,41 @@ public class BinaryTree {
 		return mytreeHeight+1;
 				
 	}
+	//count leaf node in the tree
+	public int countLeafNode(Node root)
+	{
+		//base case
+		if(root == null)
+		{
+			return 0;
+		}
+		if(root.left == null && root.right == null)
+			return 1;
+		return countLeafNode(root.left)+countLeafNode(root.right);
+	}
+	//count the total occurance of any given number
 	
+	public static int countOccurance(Node root,int target)
+	{
+		//we take a counter variavle which initilal value is
+		int count=0;
+		//base case
+		if(root == null)
+		{
+			return 0;
+		}
+		if(root.data == target)
+		{
+			count++;
+		}
+		//count left child node
+		count=count+countOccurance(root.left, target);
+		//count right child node
+		count=count+countOccurance(root.right, target);
+		return count;
+	}
 	public static void main(String[] args) {
-		int node[]= {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
+		int node[]= {1,2,4,-1,-1,1,-1,-1,3,-1,6,-1,-1};
 		BinaryTree tree=new BinaryTree();
 		//find root node
 	    Node root=tree.buildTree(node);
@@ -170,6 +202,9 @@ public class BinaryTree {
 	    
 	    System.out.println("Total Count of Nodes="+countNodes(root));
 	    System.out.println("Height of Tree="+height(root));
+	    
+	    System.out.println("count leaf node="+tree.countLeafNode(root));
+	    System.out.println("count the given number="+countOccurance(root, 1));
 	     
 	}
 
